@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import type { Prompt, Tool } from "@modelcontextprotocol/sdk/types.js";
@@ -6,10 +7,18 @@ import { buildAnySpecsCompressMessages } from "./prompts/anyspecsCompress.js";
 import { saveAnySpecsDef, handleSaveAnySpecs } from "./tools/saveAnyspecs.js";
 
 async function main() {
-  const server = new Server({
-    name: "anyspecs-mcp",
-    version: "0.1.0"
-  });
+  const server = new Server(
+    {
+      name: "anyspecs-mcp",
+      version: "0.1.0"
+    },
+    {
+      capabilities: {
+        tools: {},
+        prompts: {}
+      }
+    }
+  );
 
   // Define prompt
   const anyspecsPrompt: Prompt = {

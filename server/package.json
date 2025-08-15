@@ -1,13 +1,20 @@
 {
   "name": "anyspecs-mcp",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
+  "private": false,
   "type": "module",
   "description": "MCP server that provides a prompt to compress chat into .anyspecs JSON and a tool to save it.",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
-    "dev": "ts-node src/server.ts"
+    "dev": "ts-node src/server.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "bin": {
+    "anyspecs-mcp": "dist/server.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.2.0"
@@ -15,6 +22,9 @@
   "devDependencies": {
     "ts-node": "^10.9.2",
     "typescript": "^5.4.0"
-  }
+  },
+  "files": [
+    "dist",
+    "assets"
+  ]
 }
-

@@ -23,6 +23,10 @@ Claude Code 连接 anyspecs-mcp（MCP 指南）
 - 通过 JSON 添加：
   - `claude mcp add-json anyspecs-mcp '{"type":"stdio","command":"node","args":["/ABSOLUTE/PATH/TO/anyspecs-mcp/server/dist/server.js"],"env":{}}'`
 
+发布到 npm 后（npx 方式）
+- 一旦已发布为 npm 包并包含单一 bin，可直接：
+  - `claude mcp add anyspecs-mcp -- npx -y anyspecs-mcp`
+
 验证与管理
 - 列表与详情：`claude mcp list`、`claude mcp get anyspecs-mcp`
 - 在 Claude Code 中输入 `/mcp` 查看状态与调试
@@ -61,4 +65,3 @@ HTTP/SSE（可选扩展）
 更多参考
 - 中文使用说明：`docs/USAGE.zh-CN.md`
 - 规则模板：`docs/codeprompt.txt`
-

@@ -1,6 +1,8 @@
 import { readFile } from "fs/promises";
-import { join } from "path";
+import { resolve, dirname } from "path";
+import { fileURLToPath } from "url";
 import type { PromptMessage } from "@modelcontextprotocol/sdk/types.js";
+import { pathExists } from "../utils/fs.js";
 
 export type AnySpecsCompressArgs = {
   chat_md: string;
@@ -10,7 +12,11 @@ export type AnySpecsCompressArgs = {
 
 export async function buildAnySpecsCompressMessages(args: AnySpecsCompressArgs): Promise<PromptMessage[]> {
   const { chat_md, env_info } = args;
-  const codePromptPath = join(process.cwd(), "docs", "codeprompt.txt");
+  // Resolve codeprompt rules from packaged assets first, then fall back to repo docs.
+  const here = dirname(fileURLToPath(import.meta.url));
+  const packaged = resolve(here, "../../assets/codeprompt.txt"); // server/dist/prompts -> server/assets
+  const repoDocs = resolve(here, "../../../docs/codeprompt.txt"); // repo fallback for dev
+  const codePromptPath = (await pathExists(packaged)) ? packaged : repoDocs;
   const systemText = await readFile(codePromptPath, "utf8");
 
   const userBlocks: string[] = [];
