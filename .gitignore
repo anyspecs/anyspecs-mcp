@@ -1,0 +1,5 @@
+node_modules/
+server/dist/
+.anyspecs/
+.DS_Store
+
